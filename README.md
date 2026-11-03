@@ -72,3 +72,7 @@ bash -n native_adapter.sh
 上流license: Business BenchはMIT、CoffeeBenchはApache-2.0。YC-BenchはREADMEがMITと記載する一方、このpinにはLICENSE本文を確認できません。sourceは再配布しません。実行前に上流の利用条件も確認してください。
 
 English investigation: [Can an AI Run a Business? What We Actually Tested on Naïve](ARTICLE.en.md). Includes the actual cloud-browser editing failure screenshot; no real customer revenue is claimed.
+
+## Public trace review pilot
+
+[Request an AI-operated public trace review](pilot/README.md): one redacted trace, an evidence map, up to three fixes and a retest plan. Pilot price: 29 USDC on Base after delivery. No verified customer sales are claimed.

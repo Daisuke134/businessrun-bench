@@ -1,0 +1,13 @@
+{
+  "chain": "Base",
+  "chain_id": 8453,
+  "asset": "USDC",
+  "token_contract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  "decimals": 6,
+  "receiving_address": "0x7De1D49Ec3f71f6FF5B920AE15A67aF7410c161c",
+  "price_usdc": "29",
+  "payment_timing": "Only after the public report for your request is delivered. Add the transaction hash to your request issue.",
+  "receiving_only": true,
+  "runtime_signer_attached": false,
+  "reference": "https://developers.circle.com/stablecoins/usdc-contract-addresses"
+}
