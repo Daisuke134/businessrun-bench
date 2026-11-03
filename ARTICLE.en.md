@@ -203,33 +203,47 @@ Questions for our benchmark are concrete: "Can we resume correctly across sessio
 
 ## Current State
 
-**Infrastructure**
-- Dedicated Naïve Identity, inbox, Computer and saved browser context. Personal Google credentials are not a prerequisite for the owned-email route; inbound delivery is still unverified.
-- Native Postiz reads succeeded with three distinct tools (integrationList, integrationSchema and postsListTool); new English campaign, 1 confirmed PUBLISHED post via separate session: https://twitter.com/diceai0/status/2117488811580035223
-- Standard v7/Haiku deployment manual run succeeded. Next UTC run 12:00 UTC (automatic run not yet confirmed); wake=true, but inbound delivery not verified.
-- The v8 configuration (historical checkpoint: Haiku model, $0.75 task ceiling, $3 monthly budget) was the state at the time of the browser probe recorded above. The initial $2 trial allocation was increased by $1 from existing credit to finish publication; no top-up was made. A scheduled v8 run was not verified. As of this publication, we are running v9 with Claude Sonnet, a $5 monthly budget, and a $1 per-task ceiling, and are testing whether publication tasks complete within that envelope.
-- Email self-send accepted ≠ delivery confirmed.
+These are observed results, not a claim of a self-sustaining business.
 
-**Signups and publishing**
-- Hashnode: Cloudflare Turnstile verification gate remains unresolved before mail send. Seeking alternate publishing venue without personal Gmail.
+| Workstream | Verified result | Still unverified |
+|---|---|---|
+| Runtime | Dedicated Naïve Identity, inbox, Computer and saved browser context; production deployment pinned to v13, Claude Haiku 4.5, $7 monthly cap and $1 task ceiling; 12-hour UTC schedule | A completed natural scheduled run |
+| Email | One native outbound message reached an external mail tester; SPF passed, DKIM was valid and DMARC passed | Inbound delivery and an authenticated owned-email account |
+| Distribution | Native Postiz publishing produced public X posts; the repaired call to action was read back from Postiz and X | A customer conversion attributable to those posts |
+| Product | [Public Trace Review pilot and sample](pilot/README.md): one public, redacted trace of at most 20 tool calls, 29 USDC on Base after delivery | A third-party order, paid delivery and verified revenue |
+| Accessibility | Work runs on the agent's cloud computer and uses its own inbox | A phone-only customer entry point; the current GitHub intake targets developers |
+| Economics | Individual runtime costs are recorded separately from outcome claims | Positive unit economics, self-funded compute, portable replicas and $10,000 monthly revenue |
 
-**Model execution and budget**
-- Sonnet: One old report auto-resumed after a task-cap change, +5 calls = +137,808 microUSD. Session total: 173,184 microUSD. Do not mix into Haiku or new MCP sessions.
-- Seven specific earlier probes were cancelled and their official states checked.
+Personal Google credentials are not a prerequisite for this owned-email design. That is an architecture decision, not evidence that every signup already works. The inbox wake trigger is disabled; the deployment schedule is enabled. Manual executions do not prove scheduled execution.
 
-**Product offer**
-- BusinessRun Agent Trace Review pilot: 29 USDC on Base, post-delivery payment. Draft status; zero confirmed customers, orders, or revenue.
-- All coordinator-assisted; not zero-intervention completion proof.
+The pilot is now public. An initial recruitment post is [visible on X](https://twitter.com/diceai0/status/2117519919034077664). A later proof-led post lost its URL: the current Postiz X integration schema explicitly said links would be stripped. We had missed that rule during preflight. The [repair post](https://twitter.com/diceai0/status/2117552389045563522) gives a GitHub search route instead. Its saved HTML matched the submitted payload, and X's official embed matched the three intended paragraphs, with paragraph spacing normalized. That finite publication session consumed $0.042835 including a coordinator follow-up that attached the receipt to the agent's journal.
 
-**Public record**
-- businessrun-audit-offer.md: Restored to primary-specified version.
-- businessrun-audit-sample.md: Restored fact-limited version (internal trial only, no account/revenue claims).
+The first recruitment post had 27 reported impressions in one analytics snapshot. That small observation does not establish demand, a conversion rate or an A/B result. Customer revenue remains unverified. At the initial limit of two $29 reviews per day, even selling every slot for 30 days would produce only 1,740 USDC in gross revenue before costs. This pilot cannot reach the $10,000 monthly target at its current price and capacity. One-off review sales also do not become recurring revenue merely by reporting them monthly.
 
+These runs involved an AI coordinator: instructions, corrections, scoped tool confirmations in some runs, and independent provider readbacks. Human approval requests were zero, but we do not call the entire workflow a single Naïve agent's zero-intervention completion.
+
+### What signup testing changed
+
+We tested Substack's [documented email-code or login-link route](https://support.substack.com/hc/en-us/articles/360059542452-How-do-I-log-into-my-Substack-account) with the same dedicated agent email. Three Haiku sessions consumed $0.336596 in aggregate without an authenticated account result. A bounded GLM 5.3 Flash comparison consumed $0.166809 according to the official session status. It reached an explicit “This email is already registered with Substack” response and then the sign-in screen. That is evidence to follow the existing-email login route; it is not proof of account ownership or completed authentication. The subsequent inbox readback still contained zero messages.
+
+The comparison session's configured ceiling was $0.16, while its official consumed amount was $0.166809. The four-session total was therefore $0.503405, slightly above our $0.50 diagnostic allocation. We recorded the discrepancy rather than claiming the caps were proven hard limits. The session ended in `budget_paused`, was cancelled, and the original agent configuration was restored as v17. Production remained on v13. This single, unfinished task does not rank the models; image support was not tested in this comparison.
+
+Two interpretation errors matter more than a headline score. First, Naïve's [saved-browser read policy](https://usenaive.ai/docs/computer/browser) redacts email fields. An empty-looking screenshot cannot by itself prove that typing failed. Second, an input-wait pause closes the browser; a resumed action can encounter a fresh blank page. Saved browser context does not guarantee the same live page. We withdrew the broader input-failure claim and retained the actual observations and authentication failure.
+
+### What version testing changed
+
+We initially assumed a deployment pinned to a version would always remain there. The [deployment API documentation](https://usenaive.ai/docs/api/deployments) says a pin to the current version follows its replacement on update or rollback; a pin to an older version remains. Our first model-only change moved the current pin too. We caught that before creating a model-comparison session, restored production, and repeated the comparison with production pinned to the older v13. That second deployment snapshot stayed unchanged. This was our misunderstanding of the documented rollout contract, not a demonstrated vendor bug.
+
+### What to measure next
+
+The next business milestone is one real third-party request, a delivered report and a matching 29 USDC receipt, with runtime cost and intervention recorded. Authentication, a natural deployment run and an actual screen recording remain separate tasks. Replication should follow measured profitable work: copying an agent also copies its costs and failure modes, and does not itself create customer demand.
+
+Our benchmark should score these boundaries separately: successful registration and recovery, persistence across turns, fulfilled customer outcomes, independently verified receipts, cost per completed delivery, and human versus AI-coordinator interventions. Simulated benchmark dollars, internal transfers, publication and real customer revenue must remain separate columns.
 
 ## Publication-path update
 
 The bounded v9 Sonnet trial made 14 model calls and consumed $0.440092 before the quote for its next call no longer fit the remaining session budget. A separate short-input probe consumed $0.496773. Both sessions were cancelled after recording their results. A successful browser `type` response did not change the visible story field. These are editing failures, not completed publication.
 
-Our first explanation overgeneralized a `textarea.editable_input` helper from the public source. The located helper handles elements marked `editable_text`, including image captions; it did not establish that the title or author had a child textarea. We corrected that inference. The article editor uses Quill. We are checking the already-authorized Postiz long-form article route while retaining this browser failure as a separate unresolved result.
+Our first explanation overgeneralized a `textarea.editable_input` helper from the public source. The located helper handles elements marked `editable_text`, including image captions; it did not establish that the title or author had a child textarea. We corrected that inference. The article editor uses Quill. We subsequently used the authorized native Postiz long-form route. A shortened article was published to X, but full displayed-text equality was not verified. The browser-editor failure remains a separate unresolved result; a published post does not retroactively make that editing probe successful.
 
 The English source, benchmark code and test results are maintained at [BusinessRun Bench](https://github.com/Daisuke134/businessrun-bench). Customer revenue remains unverified.
