@@ -70,3 +70,5 @@ bash -n native_adapter.sh
 私たちのsourceはMITです。上流はそれぞれの条件に従います。第三者sourceはvendoringせず、固定commitから別に取得します。上流コード・データ・モデルのライセンスが同一とは限りません。
 
 上流license: Business BenchはMIT、CoffeeBenchはApache-2.0。YC-BenchはREADMEがMITと記載する一方、このpinにはLICENSE本文を確認できません。sourceは再配布しません。実行前に上流の利用条件も確認してください。
+
+English investigation: [Can an AI Run a Business? What We Actually Tested on Naïve](ARTICLE.en.md). Includes the actual cloud-browser editing failure screenshot; no real customer revenue is claimed.
